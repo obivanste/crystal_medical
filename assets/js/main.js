@@ -267,7 +267,9 @@
                             name: $('#name').val(),
                             email: $('#email').val(),
                             phone: $('#phone').val(),
-                            comments: $('#comments').val()
+                            comments: $('#comments').val(),
+                            doctor: $('#doctor').val(),
+                            service: $('#service').val()
                         },
                         function(data) {
                             document.getElementById('message').innerHTML = data;
