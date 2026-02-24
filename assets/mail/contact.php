@@ -12,8 +12,10 @@ if (!defined("PHP_EOL")) define("PHP_EOL", "\r\n");
 
 $name     = $_POST['name'];
 $email    = $_POST['email'];
-$phone     = $_POST['phone'];
+$phone    = $_POST['phone'];
 $comments = $_POST['comments'];
+$doctor   = isset($_POST['doctor']) ? trim($_POST['doctor']) : '';
+$service  = isset($_POST['service']) ? trim($_POST['service']) : '';
 
 if (trim($name) == '') {
 	echo '<div class="alert alert-error">You must enter your name.</div>';
@@ -56,6 +58,9 @@ $e_subject = 'Contact Form';
 // Developers, you may wish to add more fields to the form, in which case you must be sure to add them here.
 
 $e_body = "You have been contacted by $name, their additional message is as follows." . PHP_EOL . PHP_EOL;
+if ($doctor) $e_body .= "Doctor: $doctor" . PHP_EOL;
+if ($service) $e_body .= "Service: $service" . PHP_EOL;
+if ($doctor || $service) $e_body .= PHP_EOL;
 $e_content = "\"$comments\"" . PHP_EOL . PHP_EOL;
 $e_reply = "You can contact $name via email: $email or phone: $phone";
 
