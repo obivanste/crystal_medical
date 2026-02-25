@@ -3,7 +3,7 @@
 if (!$_POST) exit;
 
 // reCAPTCHA verification
-$recaptcha_secret   = 'RECAPTCHA_SECRET_REMOVED';
+require __DIR__ . '/config.php';
 $recaptcha_response = isset($_POST['recaptcha']) ? $_POST['recaptcha'] : '';
 
 if (empty($recaptcha_response)) {
