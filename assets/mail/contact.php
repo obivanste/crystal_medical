@@ -2,6 +2,35 @@
 
 if (!$_POST) exit;
 
+// reCAPTCHA verification
+$recaptcha_secret   = 'RECAPTCHA_SECRET_REMOVED';
+$recaptcha_response = isset($_POST['recaptcha']) ? $_POST['recaptcha'] : '';
+
+if (empty($recaptcha_response)) {
+    echo '<div class="alert alert-error">Molimo vas da potvrdite da niste robot.</div>';
+    exit();
+}
+
+$verify_data = http_build_query([
+    'secret'   => $recaptcha_secret,
+    'response' => $recaptcha_response,
+    'remoteip' => $_SERVER['REMOTE_ADDR']
+]);
+$context     = stream_context_create([
+    'http' => [
+        'method'  => 'POST',
+        'header'  => 'Content-Type: application/x-www-form-urlencoded',
+        'content' => $verify_data
+    ]
+]);
+$verify_result = file_get_contents('https://www.google.com/recaptcha/api/siteverify', false, $context);
+$verify_json   = json_decode($verify_result, true);
+
+if (!$verify_json['success']) {
+    echo '<div class="alert alert-error">reCAPTCHA verifikacija nije uspela. Pokušajte ponovo.</div>';
+    exit();
+}
+
 // Email address verification, do not edit.
 function isEmail($email)
 {

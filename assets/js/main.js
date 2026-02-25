@@ -256,6 +256,13 @@
 
                 var action = $(this).attr('action');
 
+                var recaptchaResponse = grecaptcha.getResponse();
+                if (!recaptchaResponse) {
+                    document.getElementById('message').innerHTML = '<div class="alert alert-error">Molimo vas da potvrdite da niste robot.</div>';
+                    $('#message').slideDown('slow');
+                    return false;
+                }
+
                 $("#message").slideUp(750, function() {
                     $('#message').hide();
 
@@ -269,7 +276,8 @@
                             phone: $('#phone').val(),
                             comments: $('#comments').val(),
                             doctor: $('#doctor').val(),
-                            service: $('#service').val()
+                            service: $('#service').val(),
+                            recaptcha: recaptchaResponse
                         },
                         function(data) {
                             document.getElementById('message').innerHTML = data;
@@ -278,6 +286,7 @@
                                 $(this).remove()
                             });
                             $('#submit').removeAttr('disabled');
+                            grecaptcha.reset();
                         }
                     );
                 });
