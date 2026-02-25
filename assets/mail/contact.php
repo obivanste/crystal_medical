@@ -42,7 +42,7 @@ $comments = stripslashes($comments);
 // Example $address = "joe.doe@yourdomain.com";
 
 //$address = "example@themeforest.net";
-$address = "office@crystalmedical.rs";
+$address = "qnctlabs@gmail.com";
 
 
 // Configuration option.
