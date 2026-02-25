@@ -11,22 +11,20 @@ if (empty($recaptcha_response)) {
     exit();
 }
 
-$verify_data = http_build_query([
+$ch = curl_init('https://www.google.com/recaptcha/api/siteverify');
+curl_setopt($ch, CURLOPT_POST, true);
+curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query([
     'secret'   => $recaptcha_secret,
     'response' => $recaptcha_response,
     'remoteip' => $_SERVER['REMOTE_ADDR']
-]);
-$context     = stream_context_create([
-    'http' => [
-        'method'  => 'POST',
-        'header'  => 'Content-Type: application/x-www-form-urlencoded',
-        'content' => $verify_data
-    ]
-]);
-$verify_result = file_get_contents('https://www.google.com/recaptcha/api/siteverify', false, $context);
+]));
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
+$verify_result = curl_exec($ch);
+curl_close($ch);
 $verify_json   = json_decode($verify_result, true);
 
-if (!$verify_json['success']) {
+if (!$verify_json || !$verify_json['success']) {
     echo '<div class="alert alert-error">reCAPTCHA verifikacija nije uspela. Pokušajte ponovo.</div>';
     exit();
 }
