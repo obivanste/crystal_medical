@@ -7248,3 +7248,61 @@ footer .footer-bottom .social li a:hover {
   background: url(assets/img/preloader.gif) center no-repeat #fff;
   text-align: center;
 }
+
+/* ==========================================
+   Blog Carousel – uniform card layout
+   ========================================== */
+
+/* Equal height rows */
+.blog-carousel .owl-stage {
+  display: flex;
+}
+.blog-carousel .owl-item {
+  display: flex;
+}
+
+/* Card stretches to fill row height */
+.blog-carousel .owl-item .item {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* Fixed image height, cropped uniformly */
+.blog-carousel .owl-item .item .thumb {
+  height: 260px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.blog-carousel .owl-item .item .thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: none !important;
+  -webkit-transform: none !important;
+  max-width: 100%;
+}
+.blog-carousel .owl-item .item:hover .thumb img {
+  transform: none !important;
+  -webkit-transform: none !important;
+}
+
+/* Info section fills remaining space */
+.blog-carousel .owl-item .item .info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding-top: 20px;
+}
+
+/* Description grows to push button down */
+.blog-carousel .owl-item .item .info p {
+  flex: 1;
+  margin-bottom: 20px;
+}
+
+/* Button always at bottom */
+.blog-carousel .owl-item .item .info .btn {
+  margin-top: auto;
+  align-self: flex-start;
+}
