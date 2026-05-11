@@ -1,4 +1,9 @@
 assets/mail/config.php
 .DS_Store
 assets/.DS_Store
+assets/img/.DS_Store
+assets/img/blog/.DS_Store
 Misc/
+Blog Stories/
+Crystal_Medical_Blog_URL_Slugs.txt
+assets/img/blog/
